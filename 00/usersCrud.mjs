@@ -24,7 +24,19 @@ app.post('/api/users',(req,res)=>{
         
 })
 
+//DELETE Request
+app.delete('/api/users/:id',(req, res)=>{
+    const userId = parseInt(req.params.id)
+    const userIndex = users.findIndex(user=> user.id === userId)
 
+    if (userIndex!==-1) {
+        users.splice(userIndex,1)
+        res.status(200).json({message:`DELETE Request - Deleting item with id ${userId}`,})
+    }
+    else{
+        res.status(404).json({message:`User with id ${userId}, Not Found`})
+    }
+})
 app.listen(PORT,()=>{
     console.log(`Server is listening at http://localhost:${PORT}`);
 })
