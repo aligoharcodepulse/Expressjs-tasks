@@ -19,8 +19,20 @@ function errorHandler(err, req, res, next) {
 }
 
 //Get all users
-app.get('/',(req,res)=>{
-    res.status(200).json({message:'Fetching All Users',data: users})
+app.get('/api/users',(req,res)=>{
+    res.status(200).json({message:'Fetching All Users', data: users})
+})
+
+// Create new user
+app.post('/api/users', (req, res) => {
+    const body = req.body;
+
+    const newUser = {
+        id: users.length + 1,
+        ...body
+    }
+    users.push(newUser)
+    res.status(201).json({ message: 'New user created!', data: newUser })
 })
 
 
