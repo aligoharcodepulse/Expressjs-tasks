@@ -51,6 +51,19 @@ app.put('/api/users/:id', (req, res) => {
     }
 })
 
+
+//Delete user
+app.delete('/api/users/:id', (req, res) => {
+    const userId = parseInt(req.params.id)
+    const userIndex = users.findIndex(user => user.id === userId)
+
+    if (userIndex !== -1) {
+        users.splice(userIndex, 1)
+        res.status(200).json({ message: `User with id ${userId} deleted!` })
+    } else {
+        res.status(404).json({ message: `User with id ${userId}, Not found!` })
+    }
+})
 app.use(errorHandler)
 
 app.listen(PORT,()=>{
